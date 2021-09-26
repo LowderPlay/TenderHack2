@@ -11,9 +11,12 @@ router.get('/', (req, res) => {
 router.get('/supplier/:inn', async (req, res) => {
     try {
         const {inn} = req.params;
+        const {day} = req.query;
+
+        const dateGroups = await axios.get(`${api}/provider/${day}`);
 
         const groups = [...await db.getMostPopularSeasonedGroups(inn,
-            ["01.15.03.17.05", "01.15.04.01.01", "01.15.04.02.04"])].map(row=> row.kpgz);
+            dateGroups.data.products)].map(row=> row.kpgz);
         const items = [...await db.getItemsFromGroups(inn, groups, true)]
             .map(row=>({id: row['ID СТЕ'], name: row['Название СТЕ'], category: row['Категория']}));
 

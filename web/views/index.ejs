@@ -52,7 +52,7 @@
     <label for="date">Дата: </label>
     <input class="u-full-width" id="date" type="date" value="2021-09-26"><br>
     <button class="button-primary" onclick="const date = document.getElementById('date').valueAsDate;
-    const day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    const day = `${String(date.getMonth()+1).padStart(2, '0')}-${date.getDate()}`;
     document.location = `/${clientType}/${document.getElementById('inn').value}?day=${day}`">
         Найти
     </button>

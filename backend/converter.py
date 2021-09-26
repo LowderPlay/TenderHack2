@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 
 def date_to_number(date_time: str):
-    return datetime.strptime(date_time, '%Y-%m-%d').timetuple().tm_yday
+    return datetime.strptime(date_time, '%m-%d').timetuple().tm_yday
 
 
 def number_to_date(year_day: int):
