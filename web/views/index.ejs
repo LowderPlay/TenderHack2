@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="/public/skeleton.css">
+<style>
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 800px;
+    }
+    input[type=date], .radio {
+        height: 38px;
+        padding: 6px 10px;
+        background-color: #fff;
+        border: 1px solid #D1D1D1;
+        border-radius: 4px;
+        box-shadow: none;
+        box-sizing: border-box;
+
+    }
+    .radio > label {
+        display: inline;
+    }
+    .radio > input {
+        margin: 0 2px;
+        vertical-align: middle;
+    }
+</style>
+<script>
+    let clientType = "supplier";
+    function update() {
+        clientType = document.querySelector('input[name="type"]:checked').value;
+        document.getElementById("type").innerText = clientType === "supplier" ? "поставщика" : "заказчика";
+    }
+</script>
+<div class="container">
+    <h2>Рекомендательный сервис для публикации закупок и участия</h2>
+    <div class="row">
+        <div class="six columns radio">
+            <input type="radio" onclick="update()" name="type" id="radio1" value="supplier" checked>
+            <label for="radio1">Поставщикам</label>
+        </div>
+        <div class="six columns radio">
+            <input type="radio" onclick="update()" name="type" id="radio2" value="customer">
+            <label for="radio2">Заказчикам</label>
+        </div>
+    </div>
+
+    <br>
+    <label for="inn">ИНН <span id="type">поставщика</span>: </label>
+    <input class="u-full-width" type="text" id="inn" placeholder="ИНН"><br>
+    <label for="date">Дата: </label>
+    <input class="u-full-width" id="date" type="date" value="2021-09-26"><br>
+    <button class="button-primary" onclick="const date = document.getElementById('date').valueAsDate;
+    const day = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    document.location = `/${clientType}/${document.getElementById('inn').value}?day=${day}`">
+        Найти
+    </button>
+</div>

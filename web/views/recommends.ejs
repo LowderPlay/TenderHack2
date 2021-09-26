@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="/public/skeleton.css">
+<style>
+    .container {
+        margin: 100px auto;
+        width: 800px;
+    }
+    .image {
+        max-width: 120px;
+        max-height: 120px;
+        margin: 25px;
+    }
+    .item {
+        border: 1px solid;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .text > h5 {
+        margin: 0;
+    }
+    .text {
+        margin: auto 0;
+    }
+</style>
+
+<div class="container">
+    <h6><%=info.name%> (ИНН <%=info.inn%>)</h6>
+    <h4><%=(info.type === "supplier" ? "Возможные предстоящие закупки" : "Актуальные товары")%></h4>
+    <% items.forEach(item=> { %>
+        <div class="row item">
+            <div class="three columns">
+                <img src="/images/<%= item.id %>.jpg" class="image" alt="<%= item.name %>">
+            </div>
+            <div class="nine columns text">
+                <h5><%= item.name %></h5>
+                <em><%= item.category %></em>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
