@@ -20,7 +20,7 @@ graph_weights = pd.read_csv('dataset/Graph_weights.csv', delimiter=",")
 launch_graph(graph_weights, G)
 app = Flask(__name__)
 
-
+# Для тестов сезонности
 def ML(date):
     f = []
     for i in range(5230):
