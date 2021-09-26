@@ -54,8 +54,8 @@ def get_customer_itm(itm, date):
             WHERE `ИНН заказчика` = {itm}), '$[*]'
             columns(id int path '$')) as jt;""")
     data_ml = binary_to_encode(ML(date), KPGZ_code)
-    data_product = product_to_encode(cursor.fetchall(), KPGZ_ID)
-    return jsonify({'products': graph(list(set(data_product) & set(data_ml)))})
+    data_product = graph(product_to_encode(cursor.fetchall(), KPGZ_ID))
+    return jsonify({'products': list(set(data_product) & set(data_ml))})
 
 
 app.run(debug=True)
