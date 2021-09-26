@@ -27,7 +27,7 @@ function getMostPopularSeasonedGroups(inn, seasonedGroups) {
                                           ) as jt)
               AND \`Код КПГЗ\` IN (?)
             GROUP BY \`Код КПГЗ\`
-            ORDER BY \`value_occurrence\` DESC LIMIT 10;
+            ORDER BY \`value_occurrence\` DESC LIMIT 100;
         `, [inn, seasonedGroups], function (error, results) {
             if(error) return reject(error);
             resolve(results);
@@ -46,7 +46,7 @@ function getItemsFromGroups(inn, groups, supplier) {
                                                      columns( id int path '$')
                                           ) as jt)
               AND \`Код КПГЗ\` IN (?)
-            GROUP BY \`Код КПГЗ\` LIMIT 10;
+            GROUP BY \`Код КПГЗ\` LIMIT 100;
         `, [inn, groups], function (error, results) {
             if(error) return reject(error);
             resolve(results);

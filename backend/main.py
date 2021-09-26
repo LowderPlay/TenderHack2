@@ -8,7 +8,6 @@ from mysql.connector import connect
 
 
 G = Graph()
-app = Flask(__name__)
 connection = connect(host="localhost",
                      port='3306',
                      user="root",
@@ -19,6 +18,7 @@ KPGZ_ID = id_to_kpgz(pd.read_csv('dataset/IDtoKPGZ.csv'))
 KPGZ_code = list(pd.read_csv('dataset/KPGZ_code.csv')['code'].to_list())
 graph_weights = pd.read_csv('dataset/Graph_weights.csv', delimiter=",")
 launch_graph(graph_weights, G)
+app = Flask(__name__)
 
 
 def ML(date):
@@ -33,11 +33,11 @@ def graph(product_list):
     for elem in product_list:
         try:
             traversal = G.graph_traversal(start_id=elem, abs_level=3, min_similarity=55, max_similarity=65)
-            recommend_product.append(traversal[2][0])
+            recommend_product.extend(traversal[2])
         except:
+            print(elem)
             pass
-    return recommend_product
-
+    return list(set(recommend_product))
 
 @app.route('/api/provider/<string:date>', methods=['GET'])
 def get_provider_itm(date):
